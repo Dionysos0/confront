@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.nwpu.dao.SubMarineMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.nwpu.pojo.SubMarine">
+        <constructor>
+            <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="category" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="operatorcountry" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="operatorservice" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="yearcommissioned" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="yeardecommissioned" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="comments" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="maxdepth" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="damagepoints" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="length" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="beam" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="draft" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="height" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="displacementstandard" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="displacementfull" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="crew" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM datasubmarine
+    </select>
+</mapper>

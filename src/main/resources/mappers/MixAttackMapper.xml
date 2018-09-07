@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.nwpu.dao.MixAttackMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.nwpu.pojo.MixAttack">
+        <constructor>
+            <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="attack_condition" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="attack_result" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, attack_condition, attack_result
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mix_attack
+        where id=#{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM mix_attack
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mix_attack
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="cn.edu.nwpu.pojo.MixAttack">
+    insert into mix_attack (id, condition, result)
+    values (#{id,jdbcType=INTEGER}, #{attack_condition,jdbcType=VARCHAR}, #{attack_result,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.edu.nwpu.pojo.MixAttack">
+        insert into mix_attack
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="condition != null">
+                attack_condition,
+            </if>
+            <if test="result != null">
+                attack_result,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="condition != null">
+                #{attack_condition,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                #{attack_result,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.nwpu.pojo.MixAttack">
+        update mix_attack
+        <set>
+            <if test="condition != null">
+                attack_condition = #{condition,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                attack_result = #{result,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.nwpu.pojo.MixAttack">
+    update mix_attack
+    set condition = #{attack_condition,jdbcType=VARCHAR},
+      result = #{attack_result,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

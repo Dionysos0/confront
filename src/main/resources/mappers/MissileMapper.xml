@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.nwpu.dao.MissileMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.nwpu.pojo.Missile">
+        <constructor>
+            <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="missile_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="missile_model_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="missile_emission" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="missile_accuracy" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="missile_warhead_type" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="missile_prepare_time" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="missile_attack_area" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="missile_attack_speed" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="missile_warhead_weight" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="missile_length" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <resultMap id="IdAndNameMap" type="cn.edu.nwpu.pojo.Missile">
+        <constructor>
+            <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="missile_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, missile_name, missile_model_name, missile_emission, missile_accuracy, missile_warhead_type, 
+    missile_prepare_time, missile_attack_area, missile_attack_speed, missile_warhead_weight, 
+    missile_length
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from missile_missile
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM missile_missile
+    </select>
+
+    <select id="selectMissileIdAndName" resultMap="IdAndNameMap">
+        SELECT id, missile_name FROM missile_missile
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from missile_missile
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="cn.edu.nwpu.pojo.Missile">
+    insert into missile_missile (id, missile_name, missile_model_name, 
+      missile_emission, missile_accuracy, missile_warhead_type, 
+      missile_prepare_time, missile_attack_area, 
+      missile_attack_speed, missile_warhead_weight, 
+      missile_length)
+    values (#{id,jdbcType=INTEGER}, #{missileName,jdbcType=VARCHAR}, #{missileModelName,jdbcType=VARCHAR}, 
+      #{missileEmission,jdbcType=VARCHAR}, #{missileAccuracy,jdbcType=VARCHAR}, #{missileWarheadType,jdbcType=VARCHAR}, 
+      #{missilePrepareTime,jdbcType=VARCHAR}, #{missileAttackArea,jdbcType=VARCHAR}, 
+      #{missileAttackSpeed,jdbcType=VARCHAR}, #{missileWarheadWeight,jdbcType=VARCHAR}, 
+      #{missileLength,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.edu.nwpu.pojo.Missile">
+        insert into missile_missile
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="missileName != null">
+                missile_name,
+            </if>
+            <if test="missileModelName != null">
+                missile_model_name,
+            </if>
+            <if test="missileEmission != null">
+                missile_emission,
+            </if>
+            <if test="missileAccuracy != null">
+                missile_accuracy,
+            </if>
+            <if test="missileWarheadType != null">
+                missile_warhead_type,
+            </if>
+            <if test="missilePrepareTime != null">
+                missile_prepare_time,
+            </if>
+            <if test="missileAttackArea != null">
+                missile_attack_area,
+            </if>
+            <if test="missileAttackSpeed != null">
+                missile_attack_speed,
+            </if>
+            <if test="missileWarheadWeight != null">
+                missile_warhead_weight,
+            </if>
+            <if test="missileLength != null">
+                missile_length,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="missileName != null">
+                #{missileName,jdbcType=VARCHAR},
+            </if>
+            <if test="missileModelName != null">
+                #{missileModelName,jdbcType=VARCHAR},
+            </if>
+            <if test="missileEmission != null">
+                #{missileEmission,jdbcType=VARCHAR},
+            </if>
+            <if test="missileAccuracy != null">
+                #{missileAccuracy,jdbcType=VARCHAR},
+            </if>
+            <if test="missileWarheadType != null">
+                #{missileWarheadType,jdbcType=VARCHAR},
+            </if>
+            <if test="missilePrepareTime != null">
+                #{missilePrepareTime,jdbcType=VARCHAR},
+            </if>
+            <if test="missileAttackArea != null">
+                #{missileAttackArea,jdbcType=VARCHAR},
+            </if>
+            <if test="missileAttackSpeed != null">
+                #{missileAttackSpeed,jdbcType=VARCHAR},
+            </if>
+            <if test="missileWarheadWeight != null">
+                #{missileWarheadWeight,jdbcType=VARCHAR},
+            </if>
+            <if test="missileLength != null">
+                #{missileLength,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.nwpu.pojo.Missile">
+        update missile_missile
+        <set>
+            <if test="missileName != null">
+                missile_name = #{missileName,jdbcType=VARCHAR},
+            </if>
+            <if test="missileModelName != null">
+                missile_model_name = #{missileModelName,jdbcType=VARCHAR},
+            </if>
+            <if test="missileEmission != null">
+                missile_emission = #{missileEmission,jdbcType=VARCHAR},
+            </if>
+            <if test="missileAccuracy != null">
+                missile_accuracy = #{missileAccuracy,jdbcType=VARCHAR},
+            </if>
+            <if test="missileWarheadType != null">
+                missile_warhead_type = #{missileWarheadType,jdbcType=VARCHAR},
+            </if>
+            <if test="missilePrepareTime != null">
+                missile_prepare_time = #{missilePrepareTime,jdbcType=VARCHAR},
+            </if>
+            <if test="missileAttackArea != null">
+                missile_attack_area = #{missileAttackArea,jdbcType=VARCHAR},
+            </if>
+            <if test="missileAttackSpeed != null">
+                missile_attack_speed = #{missileAttackSpeed,jdbcType=VARCHAR},
+            </if>
+            <if test="missileWarheadWeight != null">
+                missile_warhead_weight = #{missileWarheadWeight,jdbcType=VARCHAR},
+            </if>
+            <if test="missileLength != null">
+                missile_length = #{missileLength,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.nwpu.pojo.Missile">
+    update missile_missile
+    set missile_name = #{missileName,jdbcType=VARCHAR},
+      missile_model_name = #{missileModelName,jdbcType=VARCHAR},
+      missile_emission = #{missileEmission,jdbcType=VARCHAR},
+      missile_accuracy = #{missileAccuracy,jdbcType=VARCHAR},
+      missile_warhead_type = #{missileWarheadType,jdbcType=VARCHAR},
+      missile_prepare_time = #{missilePrepareTime,jdbcType=VARCHAR},
+      missile_attack_area = #{missileAttackArea,jdbcType=VARCHAR},
+      missile_attack_speed = #{missileAttackSpeed,jdbcType=VARCHAR},
+      missile_warhead_weight = #{missileWarheadWeight,jdbcType=VARCHAR},
+      missile_length = #{missileLength,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

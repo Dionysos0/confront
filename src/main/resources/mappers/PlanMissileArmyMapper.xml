@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.nwpu.dao.PlanMissileArmyMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.nwpu.pojo.PlanMissileArmy">
+        <constructor>
+            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="missile_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="belong_base" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="attack_base" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <resultMap id="AttackBaseMap" type="cn.edu.nwpu.pojo.PlanMissileArmy">
+        <result column="id" property="id"></result>
+        <result column="attack_base" property="attackBase"></result>
+    </resultMap>
+    <insert id="insert" parameterType="cn.edu.nwpu.pojo.PlanMissileArmy">
+    insert into plan_missile_army (id, missile_name, belong_base, 
+      attack_base)
+    values (#{id,jdbcType=INTEGER}, #{missileName,jdbcType=VARCHAR}, #{belongBase,jdbcType=VARCHAR}, 
+      #{attackBase,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.edu.nwpu.pojo.PlanMissileArmy">
+        insert into plan_missile_army
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="missileName != null">
+                missile_name,
+            </if>
+            <if test="belongBase != null">
+                belong_base,
+            </if>
+            <if test="attackBase != null">
+                attack_base,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="missileName != null">
+                #{missileName,jdbcType=VARCHAR},
+            </if>
+            <if test="belongBase != null">
+                #{belongBase,jdbcType=VARCHAR},
+            </if>
+            <if test="attackBase != null">
+                #{attackBase,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectById" parameterType="Integer" resultMap="BaseResultMap">
+        SELECT id,missile_name,belong_base,attack_base FROM plan_missile_army WHERE id=#{id}
+    </select>
+
+    <select id="selectAttackBaseById" parameterType="Integer" resultMap="AttackBaseMap">
+        SELECT DISTINCT(attack_base) FROM plan_missile_army WHERE id=#{id} ORDER BY attack_base ASC
+    </select>
+
+    <select id="selectMissileByBase" parameterType="cn.edu.nwpu.pojo.BattlefieldSituationArmy" resultType="java.lang.String">
+        SELECT missile_name FROM plan_missile_army WHERE id=#{id,jdbcType=INTEGER} AND belong_base=#{baseNmae,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByAttackBase" parameterType="cn.edu.nwpu.pojo.BattlefieldSituationArmy" resultMap="BaseResultMap">
+        SELECT * FROM plan_missile_army WHERE id=#{id,jdbcType=INTEGER} AND attack_base=#{baseNmae,jdbcType=VARCHAR}
+    </select>
+</mapper>

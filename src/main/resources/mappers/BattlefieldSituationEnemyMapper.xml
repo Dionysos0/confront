@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.nwpu.dao.BattlefieldSituationEnemyMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.nwpu.pojo.BattlefieldSituationEnemy">
+        <constructor>
+            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="base_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="last_hp" javaType="java.lang.Float" jdbcType="VARCHAR"/>
+            <arg column="point" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <resultMap id="WithOutMap" type="cn.edu.nwpu.pojo.BattlefieldSituationEnemy">
+        <constructor>
+            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="last_hp" javaType="java.lang.Float" jdbcType="VARCHAR"/>
+            <arg column="point" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="cn.edu.nwpu.pojo.BattlefieldSituationEnemy">
+    insert into battlefield_situation_enemy (id, base_name, last_hp, 
+      point)
+    values (#{id,jdbcType=INTEGER}, #{baseName,jdbcType=VARCHAR}, #{lastHp,jdbcType=VARCHAR}, 
+      #{point,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.edu.nwpu.pojo.BattlefieldSituationEnemy">
+        insert into battlefield_situation_enemy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="baseName != null">
+                base_name,
+            </if>
+            <if test="lastHp != null">
+                last_hp,
+            </if>
+            <if test="point != null">
+                point,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="baseName != null">
+                #{baseName,jdbcType=VARCHAR},
+            </if>
+            <if test="lastHp != null">
+                #{lastHp,jdbcType=VARCHAR},
+            </if>
+            <if test="point != null">
+                #{point,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectByBaseId" parameterType="Integer" resultMap="BaseResultMap">
+    SELECT id,base_name,last_hp,point FROM battlefield_situation_enemy WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectPointByIdName" parameterType="cn.edu.nwpu.pojo.BattlefieldSituationEnemy" resultType="String">
+        SELECT point FROM battlefield_situation_enemy WHERE id=#{id,jdbcType=INTEGER} AND base_name=#{baseName,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAllByIdName" parameterType="cn.edu.nwpu.pojo.BattlefieldSituationEnemy" resultMap="BaseResultMap">
+        SELECT id,base_name,last_hp,point FROM battlefield_situation_enemy WHERE id=#{id,jdbcType=INTEGER} AND base_name=#{baseName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectPointById" parameterType="int" resultType="java.lang.String">
+        SELECT point
+        FROM battlefield_situation_enemy
+        WHERE id=#{id}
+    </select>
+
+    <select id="selectSituationsWithOutNameById" parameterType="Integer" resultMap="WithOutMap">
+            SELECT id,last_hp,point FROM battlefield_situation_enemy WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+</mapper>
